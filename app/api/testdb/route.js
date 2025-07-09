@@ -1,3 +1,4 @@
+export const runtime = "nodejs";
 import mysql from "mysql2/promise";
 import { Client } from "pg";
 import { NextResponse } from "next/server";

@@ -1,3 +1,4 @@
+export const runtime = "nodejs";
 import mysql from "mysql2/promise";
 import { Client as PgClient } from "pg";
 import { MongoClient } from "mongodb";
