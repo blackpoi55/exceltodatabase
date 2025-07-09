@@ -30,9 +30,26 @@ export default function HomePage() {
       body: JSON.stringify({ dbType, connStr, tableName }),
       headers: { "Content-Type": "application/json" },
     });
+
     const result = await res.json();
-    setDbFields(result.fields || []);
+    const fetchedFields = result.fields || [];
+    setDbFields(fetchedFields);
+
+    // 🎯 auto map excel columns if field name exists in db
+    if (data.length > 0) {
+      const excelCols = Object.keys(data[0]);
+      const autoMapping = {};
+
+      excelCols.forEach(col => {
+        if (fetchedFields.includes(col)) {
+          autoMapping[col] = col;
+        }
+      });
+
+      setMapping(autoMapping);
+    }
   };
+
 
   const handleImport = async (dbType, connStr, tableName) => {
     const mappedData = data.map(row => {
